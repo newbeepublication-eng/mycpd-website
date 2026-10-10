@@ -241,49 +241,98 @@ const jsonLd = [
       <h2 class="h2 mb-3">Less than €1 a week</h2>
       <p class="lede mb-11 max-w-[600px]">Every feature in one plan. Try it free for 14 days first.</p>
       <div class="grid gap-5 lg:grid-cols-[1.1fr_1fr]">
-        <div class="rounded-[20px] bg-ink p-7 text-white sm:p-8">
+        <div class="rounded-[20px] bg-ink p-7 text-white sm:p-8" data-plan-card>
           <h3 class="mb-1.5 text-lg font-semibold">Professional</h3>
-          <p class="mb-4 text-[#A1A1AA]">Pay yearly or monthly. Cancel any time.</p>
-          <div class="mb-6 grid gap-3 sm:grid-cols-2">
-            <div class="relative rounded-2xl border-2 border-brand-yellow bg-white/5 p-4">
+          <p class="mb-5 text-[#A1A1AA]">Choose how you pay. Every feature is included either way.</p>
+          <div class="mb-6 grid grid-cols-2 gap-3" role="radiogroup" aria-label="Billing">
+            <button type="button" role="radio" aria-checked="true" data-plan="yearly" class="plan-opt relative rounded-2xl border-2 p-4 text-left">
               <span class="absolute -top-3 left-4 rounded-full bg-brand-yellow px-2.5 py-0.5 text-[12px] font-bold text-ink">Save €21.89</span>
-              <div class="text-sm font-semibold text-[#D4D4D8]">Yearly</div>
-              <div class="mt-1 text-[34px] font-bold leading-none tracking-[-0.02em]">€49.99<span class="text-[14px] font-medium text-[#A1A1AA]"> /year</span></div>
-              <p class="mt-2 text-[13px] text-[#A1A1AA]">Works out at €4.17 a month</p>
-            </div>
-            <div class="rounded-2xl border-2 border-white/15 p-4">
-              <div class="text-sm font-semibold text-[#D4D4D8]">Monthly</div>
-              <div class="mt-1 text-[34px] font-bold leading-none tracking-[-0.02em]">€5.99<span class="text-[14px] font-medium text-[#A1A1AA]"> /month</span></div>
-              <p class="mt-2 text-[13px] text-[#A1A1AA]">€71.88 over a year</p>
-            </div>
+              <span class="plan-dot" aria-hidden="true"></span>
+              <span class="block text-sm font-semibold text-[#D4D4D8]">Yearly</span>
+              <span class="mt-1 block text-[28px] font-bold leading-none tracking-[-0.02em] sm:text-[34px]">€49.99<span class="text-[13px] font-medium text-[#A1A1AA]"> /year</span></span>
+              <span class="mt-2 block text-[12.5px] text-[#A1A1AA]">€4.17 a month</span>
+            </button>
+            <button type="button" role="radio" aria-checked="false" data-plan="monthly" class="plan-opt relative rounded-2xl border-2 p-4 text-left">
+              <span class="plan-dot" aria-hidden="true"></span>
+              <span class="block text-sm font-semibold text-[#D4D4D8]">Monthly</span>
+              <span class="mt-1 block text-[28px] font-bold leading-none tracking-[-0.02em] sm:text-[34px]">€5.99<span class="text-[13px] font-medium text-[#A1A1AA]"> /month</span></span>
+              <span class="mt-2 block text-[12.5px] text-[#A1A1AA]">€71.88 over a year</span>
+            </button>
           </div>
-          <p class="-mt-3 mb-5 text-[13px] text-[#A1A1AA]">Paying yearly costs €21.89 less, about 30% off the monthly price.</p>
-          <ul class="mb-6 grid gap-2 text-[14.5px]">
-            {['Unlimited CPD entries and evidence', 'Supervision log, reports and e-signed agreements', 'Guided reflection prompts', 'Meeting minutes and notes', 'Audit-ready PDF export'].map((f) => (
+
+          <div class="mb-6 rounded-2xl bg-white/[0.06] p-4">
+            <ul class="grid gap-1.5 text-[14px] text-[#E4E4E7]" data-benefits="yearly">
+              <li>Pay once and you're covered for the whole year</li>
+              <li>€21.89 less than paying monthly, about 30% off</li>
+              <li>Works out under €1 a week</li>
+            </ul>
+            <ul class="hidden grid gap-1.5 text-[14px] text-[#E4E4E7]" data-benefits="monthly">
+              <li>Spread the cost at €5.99 a month</li>
+              <li>Cancel any time, no long commitment</li>
+              <li>Switch to yearly whenever you like to save</li>
+            </ul>
+          </div>
+
+          <p class="mb-3 text-sm font-semibold">Everything included</p>
+          <ul class="mb-7 grid gap-2 text-[14.5px] sm:grid-cols-2 sm:gap-x-5">
+            {['Unlimited CPD entries', 'Upload certificates and evidence', 'Guided reflection prompts', 'Supervision log and reports', 'E-signed supervision agreements', 'Meeting minutes with voice-to-text', 'Private notes and to-dos', 'CPD calendar and reminders', 'Audit-ready PDF export', 'Works on phone, tablet and computer'].map((f) => (
               <li class="flex gap-2.5"><Tick />{f}</li>
             ))}
           </ul>
-          <a href={links.startTrial} class="btn-yellow">Start free trial</a>
+          <div class="flex flex-col gap-2.5 sm:flex-row sm:items-center sm:gap-4">
+            <a href={links.startTrial} class="btn-yellow">Start free trial</a>
+            <p class="text-[13px] text-[#A1A1AA]" data-plan-note>14 days free, then €49.99 a year</p>
+          </div>
         </div>
-        <div class="rounded-[20px] border-[1.5px] border-[#E4E4E7] bg-[#F7F7F8] p-7 sm:p-8">
-          <h3 class="mb-1.5 text-lg font-semibold">Teams and clinics</h3>
-          <div class="text-[34px] font-bold tracking-[-0.02em]">From €44.99 <span class="text-[15px] font-medium text-[#71717A]">per user a year</span></div>
-          <p class="mb-5 mt-1.5 text-[#52525B]">One invoice and a named administrator for your team.</p>
-          <table class="mb-6 w-full text-sm">
-            <tbody>
-              {[['3 to 50 users', '€44.99'], ['51 to 150 users', '€42.49'], ['151 to 200 users', '€39.99'], ['200+ users', 'Custom quote']].map(([a, b]) => (
-                <tr class="border-b border-[#E4E4E7]"><td class="py-2">{a}</td><td class="py-2 text-right font-semibold">{b}</td></tr>
-              ))}
-            </tbody>
-          </table>
-          <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
-            <a href={links.teamTrial} class="btn-outline">Start team trial</a>
-            <a href="/mycpd-team-pricing.pdf" class="text-sm font-semibold text-[#52525B] underline underline-offset-2 hover:text-[#111]">Download team pricing (PDF)</a>
+
+        <div class="rounded-[20px] bg-[#0F766E] p-7 text-white sm:p-8">
+          <h3 class="mb-1.5 text-lg font-semibold">Teams &amp; organisations</h3>
+          <div class="text-[34px] font-bold tracking-[-0.02em]">From €44.99 <span class="text-[15px] font-medium text-[#CCFBF1]">per user a year</span></div>
+          <p class="mb-5 mt-1.5 text-[#CCFBF1]">For clinics, HSE teams, disability services, social care providers and practices.</p>
+          <div class="mb-5 overflow-hidden rounded-2xl bg-white text-ink">
+            <table class="w-full text-sm">
+              <tbody>
+                {[['3 to 50 users', '€44.99'], ['51 to 150 users', '€42.49'], ['151 to 200 users', '€39.99'], ['200+ users', 'Custom quote']].map(([a, b], i) => (
+                  <tr class={i < 3 ? 'border-b border-[#E4E4E7]' : ''}><td class="px-4 py-2.5">{a}</td><td class="px-4 py-2.5 text-right font-semibold">{b}</td></tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <ul class="mb-7 grid gap-2 text-[14.5px]">
+            {['Every Professional feature for each team member', 'One invoice for the whole team', 'A named administrator for onboarding and seats', 'Records ready for audits, appraisals and renewals'].map((f) => (
+              <li class="flex gap-2.5"><Tick />{f}</li>
+            ))}
+          </ul>
+          <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
+            <a href={links.teamTrial} class="btn-yellow whitespace-nowrap">Start team trial</a>
+            <a href="/mycpd-team-pricing.pdf" class="text-sm font-semibold text-white underline underline-offset-2 hover:text-[#CCFBF1]">Download team pricing (PDF)</a>
           </div>
         </div>
       </div>
     </div>
   </section>
+
+  <style>
+    .plan-opt { border-color: rgba(255,255,255,.15); background: transparent; transition: border-color .15s, background-color .15s; cursor: pointer; }
+    .plan-opt:hover { border-color: rgba(255,255,255,.35); }
+    .plan-opt[aria-checked="true"] { border-color: #FFD000; background: rgba(255,208,0,.08); }
+    .plan-opt:focus-visible { outline: 2px solid #FFD000; outline-offset: 3px; }
+    .plan-dot { position: absolute; top: 14px; right: 14px; width: 18px; height: 18px; border-radius: 999px; border: 2px solid rgba(255,255,255,.35); }
+    .plan-opt[aria-checked="true"] .plan-dot { border-color: #FFD000; background: #FFD000; box-shadow: inset 0 0 0 3px #18181B; }
+  </style>
+  <script>
+    const card = document.querySelector('[data-plan-card]');
+    if (card) {
+      const notes = { yearly: '14 days free, then €49.99 a year', monthly: '14 days free, then €5.99 a month' };
+      const opts = card.querySelectorAll('[data-plan]');
+      const select = (plan) => {
+        opts.forEach((o) => o.setAttribute('aria-checked', String(o.dataset.plan === plan)));
+        card.querySelectorAll('[data-benefits]').forEach((b) => b.classList.toggle('hidden', b.dataset.benefits !== plan));
+        const n = card.querySelector('[data-plan-note]'); if (n) n.textContent = notes[plan];
+      };
+      opts.forEach((o) => o.addEventListener('click', () => select(o.dataset.plan)));
+    }
+  </script>
 
   {testimonials.length > 0 && (
     <section class="bg-[#F7F7F8] py-16 md:py-20">
