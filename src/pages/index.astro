@@ -1,0 +1,368 @@
+---
+import Base from '../layouts/Base.astro';
+import ProductPreview from '../components/ProductPreview.astro';
+import Tick from '../components/Tick.astro';
+import { links, CONTACT_EMAIL } from '../lib/site.js';
+import { getSettings, getTestimonials } from '../lib/remote.js';
+import { getAllPosts } from '../lib/posts.js';
+
+const settings = await getSettings();
+const videoUrl = settings?.demo_video_url || null;
+const testimonials = (await getTestimonials()).slice(0, 2);
+const latestPosts = (await getAllPosts()).slice(0, 3);
+
+const features = [
+  { id: 'cpd-recording', tile: 'bg-[#FFD000] text-[#111111]', icon: 'check', t: 'CPD recording', d: 'Courses, seminars, workshops, conferences, online learning and postgraduate study, with hours, certificates and reflections.' },
+  { id: 'supervision', tile: 'bg-[#CCFBF1] text-[#0F766E]', icon: 'shield', t: 'Supervision', d: 'Log sessions and agreed actions, and send supervision agreements for e-signature.' },
+  { id: 'minutes-notes', tile: 'bg-[#FFF3B0] text-[#6B5300]', icon: 'clipboard', t: 'Meeting minutes', d: 'Dictate a team meeting and get clear minutes with actions, ready to share.' },
+  { id: 'notes', tile: 'bg-[#E4E4E7] text-[#3F3F46]', icon: 'note', t: 'Notes', d: 'Save your thoughts, ideas and things to remember, and find them again in seconds.' },
+];
+const icons = {
+  check: '<path d="M5 12.5l4.5 4.5L19 7"/>',
+  shield: '<path d="M12 3 5 6v5c0 5 3 8 7 10 4-2 7-5 7-10V6z"/>',
+  clipboard: '<rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4h6v3H9zM9 11h6M9 15h4"/>',
+  note: '<path d="M5 4h14v11l-5 5H5z"/><path d="M14 20v-5h5"/>',
+};
+
+const steps = [
+  { t: 'Log it in minutes', d: 'Add a course, reading, supervision or in-service from your phone. Dictate instead of typing.' },
+  { t: 'Reflect in your own words', d: 'Guided prompts help you write down what you learned and how it changes your practice.' },
+  { t: 'Export when asked', d: 'Your full 12-month record, evidence and reflections, as one PDF in the format your regulator asks for.' },
+];
+
+const faqs = [
+  { q: 'Is myCPD approved by CORU or NMBI?', a: "No. Regulators don't approve or endorse CPD tools. myCPD.ie is independent and is designed to help you keep a clear, complete record in the format your regulator asks for." },
+  { q: 'Which professions is it for?', a: 'Health and social care professionals including physiotherapists, occupational therapists, speech and language therapists, social workers, social care workers, nurses and midwives.' },
+  { q: 'What happens after the free trial?', a: 'You choose whether to subscribe: €49.99 a year or €5.99 a month. Your entries are kept either way.' },
+  { q: 'Can supervisors and supervisees both use it?', a: 'Yes. Either can log sessions, and agreements can be signed by email without an account.' },
+  { q: 'Do I have to use it only for CPD?', a: 'No. Many people use the meeting minutes and notes every week for team meetings, case reviews and training, and keep their CPD record alongside them.' },
+  { q: 'Can my team or clinic use it?', a: 'Yes. Team pricing starts at €44.99 per user per year, with one invoice. You can download the team pricing PDF in the pricing section.' },
+  { q: 'Where is my data stored?', a: 'Your data is encrypted and handled in line with GDPR. You can download or delete your data at any time from your profile.' },
+];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'myCPD.ie',
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: 'Web, iOS, Android',
+    description: 'CPD, supervision, meeting minutes and notes in one place for health and social care professionals in Ireland and the UK.',
+    offers: [
+      { '@type': 'Offer', price: '49.99', priceCurrency: 'EUR', name: 'Professional, yearly' },
+      { '@type': 'Offer', price: '5.99', priceCurrency: 'EUR', name: 'Professional, monthly' },
+    ],
+    publisher: { '@type': 'Organization', name: 'Newbee Hub Ltd', url: 'https://mycpd.ie' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  },
+];
+---
+<Base
+  title="myCPD.ie | CPD & Supervision Tracker for Health Professionals"
+  description="Record CPD, supervision, meeting minutes and notes in one place, and export an audit-ready CPD record. For CORU, NMBI, HCPC and NMC registrants. 14-day free trial."
+  jsonLd={jsonLd}
+>
+  <!-- Hero -->
+  <section class="overflow-hidden bg-white pb-20 pt-12 md:pb-24 md:pt-[72px]">
+    <div class="wrap grid items-center gap-12 lg:grid-cols-[1.02fr_1fr] lg:gap-14">
+      <div>
+        <h1 class="mb-5 text-[36px] font-bold leading-[1.08] tracking-[-0.02em] md:text-[54px]">Ready for your CPD audit, any day of the year</h1>
+        <p class="mb-7 max-w-[520px] text-[17px] leading-relaxed text-[#52525B] md:text-lg">
+          Record every course, workshop and supervision session, keep your meeting minutes and notes, and export a complete CPD record the moment you're asked for it. All in one place for your professional journey.
+        </p>
+        <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <a href={links.startTrial} class="btn-yellow">Start your free 14-day trial</a>
+          {videoUrl && (
+            <button type="button" id="open-video" class="btn-outline">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+              Watch the 2-minute demo
+            </button>
+          )}
+        </div>
+        <p class="mt-3.5 text-[13px] text-[#71717A]">No card needed. Then €49.99 a year, or €5.99 a month.</p>
+        <p class="mt-8 max-w-[520px] border-t border-[#E4E4E7] pt-5 text-[13px] leading-relaxed text-[#52525B]">
+          Built around the CPD requirements of <b class="font-semibold text-ink">CORU</b>, <b class="font-semibold text-ink">NMBI</b>, <b class="font-semibold text-ink">HCPC</b> and <b class="font-semibold text-ink">NMC</b>, for physios, OTs, SLTs, social workers, social care workers, nurses and midwives.
+        </p>
+      </div>
+      <ProductPreview />
+    </div>
+  </section>
+
+  <!-- All in one place -->
+  <section class="bg-[#F7F7F8] py-16 md:py-20">
+    <div class="wrap">
+      <h2 class="h2 mb-3 max-w-[640px]">Everything for your professional journey, in one place</h2>
+      <p class="lede mb-10 max-w-[600px]">Four tools that work together, so your CPD record builds itself as you go.</p>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {features.map((f) => (
+          <a href={`#${f.id}`} class="flex flex-col gap-2 rounded-[18px] border-[1.5px] border-[#E4E4E7] bg-white p-5 transition-colors hover:border-[#A1A1AA]">
+            <span class={`flex h-10 w-10 items-center justify-center rounded-xl ${f.tile}`}>
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={icons[f.icon]} />
+            </span>
+            <span class="mt-1 text-lg font-semibold">{f.t}</span>
+            <span class="text-[14.5px] leading-relaxed text-[#52525B]">{f.d}</span>
+            <span class="mt-auto pt-2 text-sm font-semibold underline underline-offset-4">See how ↓</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Three steps -->
+  <section id="how-it-works" class="scroll-mt-20 bg-white py-16 md:py-24">
+    <div class="wrap">
+      <h2 class="h2 mb-3 max-w-[640px]">Three steps, done as you go</h2>
+      <p class="lede mb-11 max-w-[600px]">No more rebuilding a year of CPD the week before an audit.</p>
+      <ol class="grid gap-8 md:grid-cols-3 md:gap-6">
+        {steps.map((s, i) => (
+          <li class="border-t-[3px] border-ink pt-5">
+            <span class="mb-3.5 flex h-8 w-8 items-center justify-center rounded-full bg-[#FFD000] text-[15px] font-bold text-[#111111]">{i + 1}</span>
+            <h3 class="mb-2 text-xl font-semibold">{s.t}</h3>
+            <p class="leading-relaxed text-[#52525B]">{s.d}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="bg-[#F7F7F8] py-16 md:py-24">
+    <div class="wrap space-y-16 md:space-y-24">
+      <!-- CPD recording -->
+      <div id="cpd-recording" class="grid scroll-mt-24 items-center gap-8 md:grid-cols-2 md:gap-16">
+        <div class="md:order-2">
+          <h3 class="mb-3.5 text-[26px] font-bold leading-tight md:text-[30px]">Record any CPD in minutes</h3>
+          <p class="mb-5 text-[16.5px] leading-relaxed text-[#52525B]">Add a course, seminar, workshop, conference, webinar, online course, journal article or your master's study as soon as you finish it. Upload the certificate, log the hours, and write your reflection with guided prompts.</p>
+          <ul class="grid gap-2.5 text-[15px] text-[#3F3F46]">
+            <li class="flex gap-2.5"><Tick />Hours, CPD credits and evidence kept together</li>
+            <li class="flex gap-2.5"><Tick />Reflections structured the way your regulator asks</li>
+            <li class="flex gap-2.5"><Tick />Plan upcoming CPD with reminders</li>
+          </ul>
+          <div class="mt-5 flex flex-wrap gap-2">
+            {["Courses", "Seminars", "Workshops", "Conferences", "Online learning", "Master's & postgraduate", "Reading & research"].map((c) => (
+              <span class="rounded-full bg-[#FFF3B0] px-3 py-1.5 text-[12.5px] font-medium text-[#5A4600]">{c}</span>
+            ))}
+          </div>
+        </div>
+        <div class="flex items-center justify-center rounded-3xl bg-ink p-5 sm:p-9 md:order-1" aria-hidden="true">
+          <div class="w-full max-w-[400px] rounded-2xl bg-white p-[18px] shadow-[0_20px_40px_rgba(0,0,0,0.35)]">
+            <div class="flex items-center justify-between"><h4 class="text-base font-semibold">New CPD entry</h4><span class="rounded-full bg-[#FFF3B0] px-2.5 py-1 text-[11.5px] font-semibold text-[#6B5300]">Course</span></div>
+            <div class="flex justify-between border-b border-[#E4E4E7] py-2.5 text-[13px] text-[#52525B]">Title<b class="font-semibold text-[#111]">Sensory integration workshop</b></div>
+            <div class="flex justify-between border-b border-[#E4E4E7] py-2.5 text-[13px] text-[#52525B]">Hours<b class="font-semibold text-[#111]">6.0</b></div>
+            <div class="flex justify-between py-2.5 text-[13px] text-[#52525B]">Evidence<b class="font-semibold text-[#111]">certificate.pdf ✓</b></div>
+            <div class="rounded-xl bg-[#F7F7F8] px-3 py-2.5 text-[12.5px] leading-relaxed text-[#3F3F46]"><b>Reflection</b><br />I learned to grade sensory input more precisely and will use this with two children on my caseload.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Supervision -->
+      <div id="supervision" class="grid scroll-mt-24 items-center gap-8 md:grid-cols-2 md:gap-16">
+        <div>
+          <h3 class="mb-3.5 text-[26px] font-bold leading-tight md:text-[30px]">Supervision, recorded properly</h3>
+          <p class="mb-5 text-[16.5px] leading-relaxed text-[#52525B]">Log each session, track the actions you agreed, and send supervision agreements for e-signature. Completed sessions are added to your CPD record automatically.</p>
+          <ul class="grid gap-2.5 text-[15px] text-[#3F3F46]">
+            <li class="flex gap-2.5"><Tick teal />Supervisee and supervisor views</li>
+            <li class="flex gap-2.5"><Tick teal />Agreements signed by email, no account needed</li>
+            <li class="flex gap-2.5"><Tick teal />Supervision report as a PDF</li>
+          </ul>
+        </div>
+        <div class="flex items-center justify-center rounded-3xl bg-gradient-to-br from-[#134E4A] to-ink to-70% p-5 sm:p-9" aria-hidden="true">
+          <div class="w-full max-w-[400px] rounded-2xl bg-white p-[18px] shadow-[0_20px_40px_rgba(0,0,0,0.35)]">
+            <div class="flex items-center justify-between"><h4 class="text-base font-semibold">Supervision agreement</h4><span class="rounded-full bg-[#CCFBF1] px-2.5 py-1 text-[11.5px] font-semibold text-[#0F766E]">Signed</span></div>
+            <div class="flex justify-between border-b border-[#E4E4E7] py-2.5 text-[13px] text-[#52525B]">Frequency<b class="font-semibold text-[#111]">Monthly, 60 minutes</b></div>
+            <div class="flex justify-between py-2.5 text-[13px] text-[#52525B]">Review<b class="font-semibold text-[#111]">Annually</b></div>
+            <div class="mt-2 flex gap-2.5">
+              <div class="flex-1 rounded-xl border border-dashed border-[#D4D4D8] px-2.5 py-2 text-xs text-[#52525B]">Supervisor<b class="block text-[15px] font-semibold italic text-[#111]">Mary Kelly</b>12 Sep 2026</div>
+              <div class="flex-1 rounded-xl border border-dashed border-[#D4D4D8] px-2.5 py-2 text-xs text-[#52525B]">Supervisee<b class="block text-[15px] font-semibold italic text-[#111]">Aoife Byrne</b>12 Sep 2026</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Minutes -->
+      <div id="minutes-notes" class="grid scroll-mt-24 items-center gap-8 md:grid-cols-2 md:gap-16">
+        <div class="md:order-2">
+          <h3 class="mb-3.5 text-[26px] font-bold leading-tight md:text-[30px]">Meeting minutes, written for you</h3>
+          <p class="mb-5 text-[16.5px] leading-relaxed text-[#52525B]">Dictate a team meeting or case review and let AI tidy it into clear minutes with actions, ready to share or download.</p>
+          <ul class="grid gap-2.5 text-[15px] text-[#3F3F46]">
+            <li class="flex gap-2.5"><Tick />Template for agenda, discussion, actions and next meeting</li>
+            <li class="flex gap-2.5"><Tick />Voice-to-text and AI summaries</li>
+            <li class="flex gap-2.5"><Tick />Download any record as a PDF</li>
+          </ul>
+        </div>
+        <div class="flex items-center justify-center rounded-3xl bg-ink p-5 sm:p-9 md:order-1" aria-hidden="true">
+          <div class="w-full max-w-[400px] rounded-2xl bg-white p-[18px] shadow-[0_20px_40px_rgba(0,0,0,0.35)]">
+            <div class="flex items-center justify-between"><h4 class="text-base font-semibold">Team meeting, 3 Oct</h4><span class="rounded-full bg-[#FFF3B0] px-2.5 py-1 text-[11.5px] font-semibold text-[#6B5300]">Minutes</span></div>
+            <div class="flex justify-between py-2.5 text-[13px] text-[#52525B]">Chair<b class="font-semibold text-[#111]">J. Murphy</b></div>
+            <div class="rounded-xl bg-[#F7F7F8] px-3 py-2.5 text-[12.5px] leading-relaxed text-[#3F3F46]"><b>Actions</b><br />1. Update referral pathway (A.B., 17 Oct)<br />2. Share sensory audit results (S.R., 24 Oct)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notes -->
+      <div id="notes" class="grid scroll-mt-24 items-center gap-8 md:grid-cols-2 md:gap-16">
+        <div>
+          <h3 class="mb-3.5 text-[26px] font-bold leading-tight md:text-[30px]">Your notes, saved for when you need them</h3>
+          <p class="mb-5 text-[16.5px] leading-relaxed text-[#52525B]">Note down your thoughts, save ideas for later, or record what was discussed in a meeting. Speak instead of typing and let AI pull out the key points. Everything stays private, searchable and ready to download.</p>
+          <ul class="grid gap-2.5 text-[15px] text-[#3F3F46]">
+            <li class="flex gap-2.5"><Tick />Thoughts, ideas and things to remember</li>
+            <li class="flex gap-2.5"><Tick />Notes from meetings, training and supervision</li>
+            <li class="flex gap-2.5"><Tick />Voice-to-text, AI key points and PDF download</li>
+          </ul>
+        </div>
+        <div class="flex items-center justify-center rounded-3xl bg-gradient-to-br from-[#3A3A10] to-ink to-70% p-5 sm:p-9" aria-hidden="true">
+          <div class="w-full max-w-[400px] rounded-2xl bg-white p-[18px] shadow-[0_20px_40px_rgba(0,0,0,0.35)]">
+            <div class="flex items-center justify-between"><h4 class="text-base font-semibold">My notes</h4><span class="rounded-full bg-[#FFF3B0] px-2.5 py-1 text-[11.5px] font-semibold text-[#6B5300]">3 new</span></div>
+            <div class="mt-2.5 grid gap-2">
+              {[
+                { tag: 'Meeting', cls: 'bg-[#CCFBF1] text-[#0F766E]', t: 'Parent meeting, 7 Oct', d: 'Agreed home programme, review in 6 weeks' },
+                { tag: 'Thought', cls: 'bg-[#FFF3B0] text-[#6B5300]', t: 'Try a visual timetable with the Year 2 group', d: 'Discuss at next supervision' },
+                { tag: 'For later', cls: 'bg-[#E4E4E7] text-[#3F3F46]', t: 'Article on sensory processing', d: 'Read before the November workshop' },
+              ].map((n) => (
+                <div class="flex items-start gap-2.5 rounded-xl bg-[#F7F7F8] px-3 py-2.5 text-[12.5px] text-[#3F3F46]">
+                  <span class={`mt-px flex-none whitespace-nowrap rounded-full px-2 py-0.5 text-[11px] font-semibold ${n.cls}`}>{n.tag}</span>
+                  <span><b class="block text-[13.5px] font-semibold text-[#111]">{n.t}</b>{n.d}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="scroll-mt-20 bg-white py-16 md:py-24">
+    <div class="wrap">
+      <h2 class="h2 mb-3">Less than €1 a week</h2>
+      <p class="lede mb-11 max-w-[600px]">Every feature in one plan. Try it free for 14 days first.</p>
+      <div class="grid gap-5 lg:grid-cols-[1.1fr_1fr]">
+        <div class="rounded-[20px] bg-ink p-7 text-white sm:p-8">
+          <h3 class="mb-1.5 text-lg font-semibold">Professional</h3>
+          <div class="text-[44px] font-bold tracking-[-0.02em]">€49.99 <span class="text-[15px] font-medium text-[#A1A1AA]">a year</span></div>
+          <p class="mb-5 mt-1.5 text-[#A1A1AA]">Or €5.99 a month. Cancel any time.</p>
+          <ul class="mb-6 grid gap-2 text-[14.5px]">
+            {['Unlimited CPD entries and evidence', 'Supervision log, reports and e-signed agreements', 'Guided reflection prompts', 'Meeting minutes and notes', 'Audit-ready PDF export'].map((f) => (
+              <li class="flex gap-2.5"><Tick />{f}</li>
+            ))}
+          </ul>
+          <a href={links.startTrial} class="btn-yellow">Start free trial</a>
+        </div>
+        <div class="rounded-[20px] border-[1.5px] border-[#E4E4E7] bg-[#F7F7F8] p-7 sm:p-8">
+          <h3 class="mb-1.5 text-lg font-semibold">Teams and clinics</h3>
+          <div class="text-[34px] font-bold tracking-[-0.02em]">From €44.99 <span class="text-[15px] font-medium text-[#71717A]">per user a year</span></div>
+          <p class="mb-5 mt-1.5 text-[#52525B]">One invoice and a named administrator for your team.</p>
+          <table class="mb-6 w-full text-sm">
+            <tbody>
+              {[['3 to 50 users', '€44.99'], ['51 to 150 users', '€42.49'], ['151 to 200 users', '€39.99'], ['200+ users', 'Custom quote']].map(([a, b]) => (
+                <tr class="border-b border-[#E4E4E7]"><td class="py-2">{a}</td><td class="py-2 text-right font-semibold">{b}</td></tr>
+              ))}
+            </tbody>
+          </table>
+          <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <a href={links.teamTrial} class="btn-outline">Start team trial</a>
+            <a href="/mycpd-team-pricing.pdf" class="text-sm font-semibold text-[#52525B] underline underline-offset-2 hover:text-[#111]">Download team pricing (PDF)</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {testimonials.length > 0 && (
+    <section class="bg-[#F7F7F8] py-16 md:py-20">
+      <div class="wrap">
+        <div class={`grid gap-10 ${testimonials.length > 1 ? 'md:grid-cols-2' : 'max-w-[760px]'}`}>
+          {testimonials.map((t) => (
+            <figure>
+              {t.rating ? (
+                <div class="mb-3 flex gap-0.5 text-[#FFD000]" role="img" aria-label={`${t.rating} out of 5`}>
+                  {Array.from({ length: 5 }, (_, s) => (
+                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill={s < t.rating ? 'currentColor' : 'none'} stroke={s < t.rating ? 'currentColor' : '#D4D4D8'} stroke-width="2"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z" /></svg>
+                  ))}
+                </div>
+              ) : null}
+              <blockquote class="mb-3 text-[20px] font-medium leading-normal tracking-[-0.01em] md:text-2xl">“{t.comment.trim()}”</blockquote>
+              <figcaption class="text-sm text-[#52525B]">{t.author_name}{t.profession ? `, ${t.profession}` : ''}</figcaption>
+            </figure>
+          ))}
+        </div>
+        <a href={links.leaveReview} class="mt-8 inline-block text-sm font-medium text-[#52525B] underline underline-offset-2 hover:text-[#111]">Using myCPD? Leave a review</a>
+      </div>
+    </section>
+  )}
+
+  {latestPosts.length > 0 && (
+    <section class="bg-white py-16 md:py-20">
+      <div class="wrap">
+        <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <h2 class="h2 mb-2">From the blog</h2>
+            <p class="lede">Practical guides on CPD, reflection and supervision.</p>
+          </div>
+          <a href="/blog" class="text-sm font-semibold underline underline-offset-4">All articles</a>
+        </div>
+        <div class="grid gap-5 md:grid-cols-3">
+          {latestPosts.map((p) => (
+            <a href={`/blog/${p.slug}`} class="group flex flex-col rounded-[18px] border-[1.5px] border-[#E4E4E7] p-5 transition-colors hover:border-[#A1A1AA]">
+              <span class="mb-3 w-fit rounded-full bg-[#FFF3B0] px-2.5 py-1 text-xs font-semibold text-[#5A4600]">{p.topic}</span>
+              <span class="text-lg font-semibold leading-snug group-hover:underline">{p.title}</span>
+              <span class="mt-2 text-[14.5px] leading-relaxed text-[#52525B]">{p.summary}</span>
+              <span class="mt-auto pt-4 text-xs text-[#71717A]">{p.readingMinutes} min read</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- FAQ -->
+  <section id="faq" class="scroll-mt-20 bg-[#F7F7F8] py-16 md:py-24">
+    <div class="wrap">
+      <div class="max-w-[760px]">
+        <h2 class="h2 mb-6">Questions</h2>
+        {faqs.map((f) => (
+          <details class="group border-b border-[#E4E4E7]">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-[17px] font-semibold [&::-webkit-details-marker]:hidden">
+              {f.q}
+              <span class="text-xl font-normal text-[#71717A] transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+            </summary>
+            <p class="pb-5 text-base leading-relaxed text-[#52525B]">{f.a}</p>
+          </details>
+        ))}
+        <p class="mt-6 text-sm text-[#52525B]">Something else? Email <a class="font-semibold underline" href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final call to action -->
+  <section class="bg-[#FFD000] py-16 md:py-20">
+    <div class="wrap">
+      <h2 class="h2 mb-3 text-[#111]">Start your record today, and be ready before you're asked</h2>
+      <p class="mb-7 text-[17px] text-[#3F3F46]">14 days free. No card needed.</p>
+      <a href={links.startTrial} class="btn-black">Start free trial</a>
+    </div>
+  </section>
+
+  {videoUrl && (
+    <dialog id="video-dialog" class="w-[min(960px,92vw)] rounded-2xl bg-black p-0 backdrop:bg-black/80">
+      <div class="relative">
+        <button type="button" id="close-video" class="absolute right-2 top-2 z-10 rounded-full bg-white/90 px-3 py-1 text-sm font-semibold text-[#111]">Close</button>
+        <video id="demo-video" src={videoUrl} controls playsinline preload="none" class="block w-full"></video>
+      </div>
+    </dialog>
+  )}
+</Base>
+
+<script>
+  const dlg = document.getElementById('video-dialog') as HTMLDialogElement | null;
+  const vid = document.getElementById('demo-video') as HTMLVideoElement | null;
+  document.getElementById('open-video')?.addEventListener('click', () => { dlg?.showModal(); vid?.play().catch(() => {}); });
+  const close = () => { vid?.pause(); dlg?.close(); };
+  document.getElementById('close-video')?.addEventListener('click', close);
+  dlg?.addEventListener('click', (e) => { if (e.target === dlg) close(); });
+  dlg?.addEventListener('close', () => vid?.pause());
+</script>

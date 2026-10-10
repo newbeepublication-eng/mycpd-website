@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body { @apply bg-white font-sans text-ink antialiased; }
+  :focus-visible { outline: 2px solid #18181B; outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+}
+
+@layer components {
+  .btn { @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl px-6 py-3.5 text-base font-semibold transition-all; }
+  .btn-yellow { @apply btn border border-[#E0B400] bg-gradient-to-b from-[#FFDD3D] via-[#FFD000] to-[#F7C800] text-[#111111] -translate-y-0.5 shadow-[0_5px_0_#B38B00,0_12px_22px_rgba(0,0,0,0.22)] hover:brightness-105 active:translate-y-0.5 active:shadow-[0_1px_0_#B38B00]; }
+  .btn-outline { @apply btn border-[1.5px] border-ink bg-white text-[#111111] -translate-y-0.5 shadow-[0_4px_0_#18181B] hover:bg-[#F4F4F5] active:translate-y-0.5 active:shadow-[0_1px_0_#18181B]; }
+  .btn-black { @apply btn bg-ink text-white -translate-y-0.5 shadow-[0_5px_0_#000,0_12px_22px_rgba(0,0,0,0.25)] hover:bg-[#27272A] active:translate-y-0.5 active:shadow-[0_1px_0_#000]; }
+  .nav-pill { @apply rounded-[10px] bg-[#2F2F33] px-3.5 py-2 text-sm font-medium text-white shadow-[0_3px_0_#09090B,inset_0_1px_0_rgba(255,255,255,0.08)] transition-all hover:bg-[#3A3A3F] active:translate-y-0.5 active:shadow-[0_1px_0_#09090B]; }
+  .wrap { @apply mx-auto max-w-[1180px] px-4 sm:px-6; }
+  .h2 { @apply text-[28px] font-bold leading-tight tracking-[-0.01em] md:text-[38px]; }
+  .lede { @apply text-[17px] leading-relaxed text-[#52525B]; }
+}
+
+/* Blog article typography */
+.prose { @apply text-[17px] leading-[1.75] text-[#27272A]; }
+.prose > * + * { margin-top: 1.1em; }
+.prose h2 { @apply mt-12 text-[26px] font-bold leading-tight tracking-[-0.01em] text-ink; }
+.prose h3 { @apply mt-8 text-xl font-semibold text-ink; }
+.prose a { @apply font-medium text-ink underline decoration-[#FFD000] decoration-2 underline-offset-4 hover:decoration-ink; }
+.prose ul, .prose ol { padding-left: 1.4em; }
+.prose ul { list-style: disc; }
+.prose ol { list-style: decimal; }
+.prose li + li { margin-top: 0.4em; }
+.prose li::marker { color: #71717A; }
+.prose strong { @apply font-semibold text-ink; }
+.prose blockquote { @apply rounded-r-xl border-l-4 border-[#FFD000] bg-[#FFFBEB] px-5 py-3 text-[#3F3F46]; }
+.prose table { @apply w-full border-collapse text-[15px]; }
+.prose th, .prose td { @apply border-b border-[#E4E4E7] px-2 py-2 text-left align-top; }
+.prose th { @apply font-semibold text-ink; }
+.prose hr { @apply my-10 border-[#E4E4E7]; }
+.prose code { @apply rounded bg-[#F4F4F5] px-1.5 py-0.5 text-[0.9em]; }

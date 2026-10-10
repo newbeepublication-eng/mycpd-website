@@ -1,0 +1,19 @@
+---
+import Base from './Base.astro';
+import { marked } from 'marked';
+interface Props { title: string; description: string; updated: string; markdown: string }
+const { title, description, updated, markdown } = Astro.props;
+// support "## Heading {#id}" anchors
+const html = marked.parse(markdown).replace(/<h2>(.*?)\s*\{#([\w-]+)\}<\/h2>/g, '<h2 id="$2">$1</h2>');
+---
+<Base title={`${title} | myCPD.ie`} description={description}>
+  <section class="bg-[#F7F7F8] py-12 md:py-16">
+    <div class="mx-auto max-w-[760px] px-4 sm:px-6">
+      <h1 class="text-[34px] font-bold leading-tight tracking-[-0.02em] md:text-[44px]">{title}</h1>
+      <p class="mt-2 text-sm text-[#71717A]">Last updated: {updated}</p>
+    </div>
+  </section>
+  <div class="mx-auto max-w-[760px] px-4 py-12 sm:px-6 md:py-16">
+    <div class="prose [&_h2]:scroll-mt-24" set:html={html} />
+  </div>
+</Base>

@@ -1,0 +1,32 @@
+---
+---
+<div id="cookie-banner" hidden role="region" aria-label="Cookie choices"
+  class="fixed inset-x-0 bottom-0 z-[60] border-t-4 border-brand-teal bg-white pb-[env(safe-area-inset-bottom)] text-ink shadow-[0_-10px_30px_rgba(0,0,0,0.15)]">
+  <div class="wrap flex flex-col gap-3 py-4 md:flex-row md:items-center md:justify-between">
+    <p class="max-w-2xl text-sm leading-relaxed text-[#3F3F46]">
+      We use strictly necessary cookies to run this site. With your permission we'd also like to use analytics cookies to see how the site is used. <a href="/privacy#cookies" class="font-medium underline">Privacy policy</a>
+    </p>
+    <div class="flex flex-none gap-2">
+      <button type="button" data-choice="necessary" class="rounded-lg border border-[#D4D4D8] px-4 py-2 text-sm font-semibold hover:bg-[#F4F4F5]">Necessary only</button>
+      <button type="button" data-choice="all" class="rounded-lg bg-ink px-4 py-2 text-sm font-semibold text-white hover:bg-[#27272A]">Accept all</button>
+    </div>
+  </div>
+</div>
+<script>
+  const KEY = 'gdpr_cookie_prefs';
+  const banner = document.getElementById('cookie-banner');
+  let saved = null;
+  try { saved = localStorage.getItem(KEY); } catch {}
+  if (banner && !saved) banner.hidden = false;
+  banner?.querySelectorAll('button[data-choice]').forEach((b) =>
+    b.addEventListener('click', () => {
+      const all = (b as HTMLElement).dataset.choice === 'all';
+      const prefs = { necessary: true, analytics: all, marketing: false };
+      try { localStorage.setItem(KEY, JSON.stringify(prefs)); } catch {}
+      const g = (window as any).gtag;
+      if (g) g('consent', 'update', { analytics_storage: all ? 'granted' : 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+      (window as any).dataLayer?.push({ event: 'cookie_consent_update', analytics: all });
+      banner.hidden = true;
+    })
+  );
+</script>

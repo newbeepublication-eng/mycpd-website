@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+import { links } from '../lib/site.js';
+---
+<Base title="Page not found | myCPD.ie" description="This page could not be found." noindex>
+  <section class="bg-white py-24">
+    <div class="wrap max-w-[640px]">
+      <h1 class="text-[36px] font-bold leading-tight">We couldn't find that page</h1>
+      <p class="lede mt-3">If you were looking for your CPD record, sign in to the app.</p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href={links.signIn} class="btn-yellow">Sign in to myCPD</a>
+        <a href="/" class="btn-outline">Go to the homepage</a>
+      </div>
+    </div>
+  </section>
+</Base>

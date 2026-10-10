@@ -1,0 +1,61 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getAllPosts } from '../../lib/posts.js';
+const posts = await getAllPosts();
+const topics = [...new Set(posts.map((p) => p.topic))];
+const fmt = (d) => d.toLocaleDateString('en-IE', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+<Base title="Blog | myCPD.ie" description="Practical guides for health and social care professionals on CPD audits, writing reflections, supervision and regulator requirements in Ireland and the UK.">
+  <section class="bg-[#F7F7F8] py-14 md:py-20">
+    <div class="wrap">
+      <h1 class="text-[34px] font-bold leading-tight tracking-[-0.02em] md:text-[48px]">The myCPD blog</h1>
+      <p class="lede mt-3 max-w-[620px]">Practical guides on CPD audits, writing reflections and supervision, for health and social care professionals in Ireland and the UK.</p>
+      {topics.length > 1 && (
+        <div class="mt-8 flex flex-wrap gap-2" role="group" aria-label="Filter by topic">
+          <button type="button" data-topic="all" aria-pressed="true" class="topic-btn rounded-full border px-3.5 py-1.5 text-sm font-medium">All</button>
+          {topics.map((t) => <button type="button" data-topic={t} aria-pressed="false" class="topic-btn rounded-full border px-3.5 py-1.5 text-sm font-medium">{t}</button>)}
+        </div>
+      )}
+    </div>
+  </section>
+  <section class="bg-white py-12 md:py-16">
+    <div class="wrap">
+      {posts.length === 0 ? (
+        <p class="lede">New articles are on the way.</p>
+      ) : (
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {posts.map((p) => (
+            <a href={`/blog/${p.slug}`} data-post-topic={p.topic} class="post-card group flex flex-col overflow-hidden rounded-[18px] border-[1.5px] border-[#E4E4E7] transition-colors hover:border-[#A1A1AA]">
+              {p.cover ? <img src={p.cover} alt="" loading="lazy" class="aspect-[16/9] w-full object-cover" /> : (
+                <div class="flex aspect-[16/9] w-full items-end bg-ink p-5"><span class="text-[15px] font-semibold leading-snug text-[#FFD000]">{p.topic}</span></div>
+              )}
+              <div class="flex flex-1 flex-col p-5">
+                <div class="mb-2 flex flex-wrap items-center gap-2 text-xs text-[#71717A]">
+                  <span class="rounded-full bg-[#FFF3B0] px-2.5 py-1 font-semibold text-[#5A4600]">{p.topic}</span>
+                  {p.status === 'draft' && <span class="rounded-full bg-[#FEE2E2] px-2.5 py-1 font-semibold text-[#991B1B]">Draft</span>}
+                  <span>{p.readingMinutes} min read</span>
+                </div>
+                <h2 class="text-lg font-semibold leading-snug group-hover:underline">{p.title}</h2>
+                <p class="mt-2 text-[14.5px] leading-relaxed text-[#52525B]">{p.summary}</p>
+                <p class="mt-auto pt-4 text-xs text-[#71717A]">{fmt(p.date)}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</Base>
+<style>
+  .topic-btn { border-color: #D4D4D8; background: #fff; }
+  .topic-btn[aria-pressed='true'] { border-color: #18181B; background: #18181B; color: #fff; }
+</style>
+<script>
+  const btns = document.querySelectorAll('.topic-btn');
+  const cards = document.querySelectorAll('.post-card');
+  btns.forEach((b) => b.addEventListener('click', () => {
+    const t = (b as HTMLElement).dataset.topic;
+    btns.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    cards.forEach((c) => { (c as HTMLElement).hidden = t !== 'all' && (c as HTMLElement).dataset.postTopic !== t; });
+  }));
+</script>
