@@ -1,8 +1,20 @@
 ---
 import Base from '../layouts/Base.astro';
-import { links } from '../lib/site.js';
+import { links, APP_URL } from '../lib/site.js';
 ---
 <Base title="Page not found | myCPD.ie" description="This page could not be found." noindex>
+  <script is:inline define:vars={{ appUrl: APP_URL }}>
+    // Old app links (mycpd.ie/Dashboard, /Subscription, /ContractSigning?token=...) now live on the app address.
+    // Anything the website doesn't have is forwarded there, keeping the full path and query.
+    (function () {
+      try {
+        var app = new URL(appUrl);
+        if (location.hostname !== app.hostname && /(^|\.)mycpd\.ie$/.test(location.hostname)) {
+          location.replace(app.origin + location.pathname + location.search + location.hash);
+        }
+      } catch (e) {}
+    })();
+  </script>
   <section class="bg-white py-24">
     <div class="wrap max-w-[640px]">
       <h1 class="text-[36px] font-bold leading-tight">We couldn't find that page</h1>

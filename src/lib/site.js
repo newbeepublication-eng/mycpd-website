@@ -1,6 +1,5 @@
-// Where the myCPD app lives. Until the app moves to app.mycpd.ie this stays https://mycpd.ie.
-// Change it in Netlify: Site configuration > Environment variables > PUBLIC_APP_URL
-export const APP_URL = (import.meta.env.PUBLIC_APP_URL || 'https://mycpd.ie').replace(/\/$/, '');
+// Where the myCPD app lives. Override with the PUBLIC_APP_URL environment variable if needed.
+export const APP_URL = (import.meta.env.PUBLIC_APP_URL || 'https://app.mycpd.ie').replace(/\/$/, '');
 export const SITE_NAME = 'myCPD.ie';
 export const BASE44_APP_ID = '6880f4b195332c6510415675';
 export const BASE44_API = `https://base44.app/api/apps/${BASE44_APP_ID}`;
