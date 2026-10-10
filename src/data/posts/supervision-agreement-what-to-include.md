@@ -5,7 +5,7 @@ summary: "A clear supervision agreement saves misunderstandings later. Here are 
 topic: Supervision
 date: 2026-10-08
 author: The myCPD team
-status: draft
+status: published
 ---
 
 A supervision agreement (sometimes called a supervision contract) is a short written record of how supervision will work between a supervisor and a supervisee. Agreeing it at the start makes sessions more focused, and it protects both of you if questions come up later.

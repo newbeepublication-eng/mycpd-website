@@ -5,7 +5,7 @@ summary: "NMBI is finalising a Professional Competence Scheme for nurses and mid
 topic: Regulation
 date: 2026-10-07
 author: The myCPD team
-status: draft
+status: published
 ---
 
 Nurses and midwives in Ireland have always been expected to keep their competence up to date. What has been missing is a formal national scheme for showing it. That is changing, and it is worth knowing where things stand.

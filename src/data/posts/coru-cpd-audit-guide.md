@@ -5,7 +5,7 @@ summary: "Selected for a CORU CPD audit, or worried you might be? Here is how th
 topic: CPD audits
 date: 2026-10-10
 author: The myCPD team
-status: draft
+status: published
 ---
 
 If you are registered with CORU, there is a chance you will be selected for a CPD audit. It is not a test of how good a practitioner you are. It checks one thing: that you have done enough new learning, reflected on it, and planned what comes next. Here is how it works, based on CORU's current CPD Audit Policy (version 3, November 2025).

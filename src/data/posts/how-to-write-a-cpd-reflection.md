@@ -5,7 +5,7 @@ summary: "A simple three-question method for writing CPD reflections that show w
 topic: Reflection
 date: 2026-10-09
 author: The myCPD team
-status: draft
+status: published
 ---
 
 Most CPD records do not fall down on the learning. They fall down on the reflection. A course title and "very useful, learned a lot" does not show a reviewer what changed. A good reflection does, and it does not need to be long.

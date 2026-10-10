@@ -5,7 +5,7 @@ summary: "Registered with the HCPC in the UK? Here is how CPD audits work at ren
 topic: CPD audits
 date: 2026-10-06
 author: The myCPD team
-status: draft
+status: published
 ---
 
 If you are registered with the Health and Care Professions Council (HCPC) in the UK, you sign a declaration at every renewal that you meet the standards for continuing professional development (CPD). A small number of registrants are then asked to prove it.

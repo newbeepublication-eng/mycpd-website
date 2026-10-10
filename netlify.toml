@@ -5,7 +5,6 @@
 [build.environment]
   NODE_VERSION = "20"
   # Show draft blog posts while the site is in preview. Remove this line before launch.
-  PUBLIC_SHOW_DRAFTS = "true"
 
 # Long cache for built assets, short for pages
 [[headers]]
