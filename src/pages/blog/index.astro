@@ -24,20 +24,18 @@ const fmt = (d) => d.toLocaleDateString('en-IE', { day: 'numeric', month: 'long'
         <p class="lede">New articles are on the way.</p>
       ) : (
         <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {posts.map((p) => (
-            <a href={`/blog/${p.slug}`} data-post-topic={p.topic} class="post-card group flex flex-col overflow-hidden rounded-[18px] border-[1.5px] border-[#E4E4E7] transition-colors hover:border-[#A1A1AA]">
-              {p.cover ? <img src={p.cover} alt="" loading="lazy" class="aspect-[16/9] w-full object-cover" /> : (
-                <div class="flex aspect-[16/9] w-full items-end bg-ink p-5"><span class="text-[15px] font-semibold leading-snug text-[#FFD000]">{p.topic}</span></div>
-              )}
-              <div class="flex flex-1 flex-col p-5">
-                <div class="mb-2 flex flex-wrap items-center gap-2 text-xs text-[#71717A]">
-                  <span class="rounded-full bg-[#FFF3B0] px-2.5 py-1 font-semibold text-[#5A4600]">{p.topic}</span>
+          {posts.map((p, i) => (
+            <a href={`/blog/${p.slug}`} data-post-topic={p.topic} class={`post-card group flex flex-col overflow-hidden rounded-[18px] text-white transition-transform hover:-translate-y-1 ${i % 2 === 0 ? 'card-ink' : 'card-teal'}`}>
+              {p.cover && <img src={p.cover} alt="" loading="lazy" class="aspect-[16/9] w-full object-cover" />}
+              <div class="flex flex-1 flex-col p-6">
+                <div class="mb-3 flex flex-wrap items-center gap-2 text-xs">
+                  <span class="rounded-full bg-[#FFD000] px-2.5 py-1 font-semibold text-ink">{p.topic}</span>
                   {p.status === 'draft' && <span class="rounded-full bg-[#FEE2E2] px-2.5 py-1 font-semibold text-[#991B1B]">Draft</span>}
-                  <span>{p.readingMinutes} min read</span>
+                  <span class="card-meta">{p.readingMinutes} min read</span>
                 </div>
-                <h2 class="text-lg font-semibold leading-snug group-hover:underline">{p.title}</h2>
-                <p class="mt-2 text-[14.5px] leading-relaxed text-[#52525B]">{p.summary}</p>
-                <p class="mt-auto pt-4 text-xs text-[#71717A]">{fmt(p.date)}</p>
+                <h2 class="text-[19px] font-semibold leading-snug group-hover:underline">{p.title}</h2>
+                <p class="card-sub mt-2.5 text-[14.5px] leading-relaxed">{p.summary}</p>
+                <p class="card-meta mt-auto pt-5 text-xs">{fmt(p.date)}</p>
               </div>
             </a>
           ))}
@@ -48,6 +46,10 @@ const fmt = (d) => d.toLocaleDateString('en-IE', { day: 'numeric', month: 'long'
 </Base>
 <style>
   .topic-btn { border-color: #D4D4D8; background: #fff; }
+  .card-ink { background: #18181B; border: 2px solid #FFD000; }
+  .card-teal { background: #0F766E; border: 2px solid #0F766E; }
+  .card-ink .card-sub { color: #D4D4D8; } .card-ink .card-meta { color: #A1A1AA; }
+  .card-teal .card-sub { color: #CCFBF1; } .card-teal .card-meta { color: #99F6E4; }
   .topic-btn[aria-pressed='true'] { border-color: #18181B; background: #18181B; color: #fff; }
 </style>
 <script>
