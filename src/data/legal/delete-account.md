@@ -8,7 +8,17 @@ This page explains how to delete your **myCPD** account (the myCPD – Professio
 
 Before you delete, you can use **Download My Data** on the same page to keep a copy of your CPD record.
 
-## Ask us to delete it {#by-email}
+## Delete some of your data, and keep your account {#some-data}
+
+You can delete individual items yourself at any time, without deleting your account:
+
+- **CPD entries:** open the entry in your CPD Journal and choose **Delete**.
+- **Notes and meeting minutes:** open the note or minutes and choose **Delete**.
+- **Uploaded files:** remove the file from the entry it belongs to.
+
+Deleted items are removed from your account straight away. To ask us to delete a specific type of data for you, email **info@newbeepublication.com**.
+
+## Ask us to delete your account {#by-email}
 
 If you can't sign in, email **info@newbeepublication.com** from the email address on your account, with the subject **"Delete my myCPD account"**. We will confirm and complete the deletion within 30 days, as required by GDPR.
 
