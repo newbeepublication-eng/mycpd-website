@@ -37,6 +37,7 @@ const faqs = [
   { q: 'Can supervisors and supervisees both use it?', a: 'Yes. Either can log sessions, and agreements can be signed by email without an account.' },
   { q: 'Do I have to use it only for CPD?', a: 'No. Many people use the meeting minutes and notes every week for team meetings, case reviews and training, and keep their CPD record alongside them.' },
   { q: 'Can my team or clinic use it?', a: 'Yes. Team pricing starts at €44.99 per user per year, with one invoice. You can download the team pricing PDF in the pricing section.' },
+  { q: 'Do I get anything for recommending myCPD?', a: "Yes. Share your invite link from your dashboard. Each time a colleague joins with it and buys a plan, we add one free month to your subscription, with no limit. Free trials don't count until they subscribe." },
   { q: 'Where is my data stored?', a: 'Your data is encrypted and handled in line with GDPR. You can download or delete your data at any time from your profile.' },
 ];
 
@@ -308,6 +309,14 @@ const jsonLd = [
             <a href="/mycpd-team-pricing.pdf" class="text-sm font-semibold text-white underline underline-offset-2 hover:text-[#CCFBF1]">Download team pricing (PDF)</a>
           </div>
         </div>
+      </div>
+
+      <div id="invite" class="mt-10 flex scroll-mt-24 flex-col gap-5 rounded-[18px] border-2 border-[#FFD000] bg-[#FFFBEB] p-6 md:flex-row md:items-center md:justify-between md:p-8">
+        <div class="max-w-[620px]">
+          <h3 class="text-[22px] font-bold leading-snug text-[#111]">Invite a colleague, get a month free</h3>
+          <p class="mt-2 text-[15px] leading-relaxed text-[#3F3F46]">When a colleague joins with your invite link and buys a plan, we add one free month to your subscription. There's no limit, so five colleagues means five free months. Your invite link is on your dashboard once you're subscribed.</p>
+        </div>
+        <a href={links.invite} class="btn-black whitespace-nowrap self-start md:self-auto">Get your invite link</a>
       </div>
     </div>
   </section>

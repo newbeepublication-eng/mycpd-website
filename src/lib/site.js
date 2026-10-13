@@ -9,6 +9,7 @@ export const links = {
   startTrial: `${APP_URL}/signin`,
   teamTrial: `${APP_URL}/signinteam`,
   leaveReview: `${APP_URL}/leavereview`,
+  invite: `${APP_URL}/Referrals`,
 };
 
 export const CONTACT_EMAIL = 'info@newbeepublication.com';
