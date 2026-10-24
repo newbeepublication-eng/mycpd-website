@@ -5,6 +5,7 @@ summary: "NMBI is finalising a Professional Competence Scheme for nurses and mid
 topic: Regulation
 date: 2026-10-07
 author: The myCPD team
+cover: /blog/nmbi-professional-competence-scheme.jpg
 status: published
 ---
 

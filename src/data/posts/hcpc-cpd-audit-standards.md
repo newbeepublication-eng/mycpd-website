@@ -5,6 +5,7 @@ summary: "Registered with the HCPC in the UK? Here is how CPD audits work at ren
 topic: CPD audits
 date: 2026-10-06
 author: The myCPD team
+cover: /blog/hcpc-cpd-audit-standards.jpg
 status: published
 ---
 

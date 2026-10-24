@@ -5,6 +5,7 @@ summary: "Selected for a CORU CPD audit, or worried you might be? Here is how th
 topic: CPD audits
 date: 2026-10-10
 author: The myCPD team
+cover: /blog/coru-cpd-audit-guide.jpg
 status: published
 ---
 

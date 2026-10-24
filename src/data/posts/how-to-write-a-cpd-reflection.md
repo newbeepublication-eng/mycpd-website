@@ -5,6 +5,7 @@ summary: "A simple three-question method for writing CPD reflections that show w
 topic: Reflection
 date: 2026-10-09
 author: The myCPD team
+cover: /blog/how-to-write-a-cpd-reflection.jpg
 status: published
 ---
 

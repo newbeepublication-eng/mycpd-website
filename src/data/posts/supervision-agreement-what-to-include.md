@@ -5,6 +5,7 @@ summary: "A clear supervision agreement saves misunderstandings later. Here are 
 topic: Supervision
 date: 2026-10-08
 author: The myCPD team
+cover: /blog/supervision-agreement-what-to-include.jpg
 status: published
 ---
 
