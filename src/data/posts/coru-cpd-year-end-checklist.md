@@ -5,6 +5,7 @@ summary: "Courses and conferences wind down in December. Use these last weeks of
 topic: CPD audits
 date: 2026-10-24
 author: The myCPD team
+cover: /blog/coru-cpd-year-end-checklist.jpg
 status: published
 ---
 
